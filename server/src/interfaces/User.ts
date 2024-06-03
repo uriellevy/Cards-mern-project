@@ -32,7 +32,7 @@ export interface IUser extends Document {
 // Define the IUserModel interface
 export interface IUserModel extends Model<IUser> {
     signup(userEntity: IUser): Promise<IUser>;
-    // login(email: string, password: string): Promise<IUser>;
+    login(email: string, password: string): Promise<IUser>;
 }
 
 

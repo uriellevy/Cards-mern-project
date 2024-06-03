@@ -1,8 +1,6 @@
 import Joi from "joi";
 import { IAddress, IImage, IName, IUser } from "../../interfaces/User";
-
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*-])[A-Za-z\d!@#$%^&*-]{6,20}$/;
-const phoneRegex = /^((\+972|0)([23489]|5[02468]|77)-?[1-9]\d{6})$/;
+import { passwordRegex, phoneRegex } from "./Patterns";
 
 const userSchema = Joi.object<IUser>({
     isBusiness: Joi.boolean().required(),

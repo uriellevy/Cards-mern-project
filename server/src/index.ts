@@ -5,6 +5,7 @@ import chalk from "chalk";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import userRoutes from "./routes/User"
+import cardsRoutes from "./routes/Cards"
 import errorHandler from "./middleware/ErrorHandler";
 
 const log = console.log;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
 app.use("/api/user", userRoutes);
+app.use("/api/cards", cardsRoutes);
 // app.use(errorHandler);
 
 
