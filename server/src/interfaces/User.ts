@@ -1,3 +1,5 @@
+import { Document, Model, Schema } from "mongoose";
+
 export interface IName {
     first: string
     middle?: string
@@ -15,7 +17,7 @@ export interface IImage {
     alt: string
     url: string
 };
-export interface IUser {
+export interface IUser extends Document{
     email: string
     phone: string
     password: string
@@ -26,3 +28,9 @@ export interface IUser {
     name: IName
     image?: IImage
 };
+
+// Define the IUserModel interface
+export interface IUserModel extends Model<IUser> {
+    signup(userEntity: IUser): Promise<IUser>;
+    // login(email: string, password: string): Promise<IUser>;
+}
