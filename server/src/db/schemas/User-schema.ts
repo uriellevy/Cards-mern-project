@@ -5,7 +5,7 @@ import addressSchema from "./Adress-schema";
 import imageSchema from "./Image-schema";
 import bcrypt from "bcrypt";
 
-const userSchema = new Schema<IUser,IUserModel>({
+const userSchema = new Schema<IUser, IUserModel>({
     name: nameSchema,
     address: addressSchema,
     image: { type: imageSchema, required: false },
@@ -13,7 +13,7 @@ const userSchema = new Schema<IUser,IUserModel>({
         type: String,
         required: true,
         minlength: 6,
-        maxlength: 20,
+        maxlength: 30,
         unique: true,
     },
     password: { type: String, required: true, minlength: 7, maxlength: 300 },
@@ -21,7 +21,7 @@ const userSchema = new Schema<IUser,IUserModel>({
     isBusiness: { required: true, type: Boolean },
     createdAt: { type: Date, default: new Date(), required: false },
     isAdmin: { required: false, type: Boolean, default: false },
-});
+},{timestamps: true});
 
 //static signup method
 userSchema.statics.signup = async function (userEntity: IUser) {

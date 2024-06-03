@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
 app.use("/api/user", userRoutes);
-app.use(errorHandler);
+// app.use(errorHandler);
 
 
 

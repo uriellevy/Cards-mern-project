@@ -17,7 +17,7 @@ export interface IImage {
     alt: string
     url: string
 };
-export interface IUser extends Document{
+export interface IUser extends Document {
     email: string
     phone: string
     password: string
@@ -33,4 +33,11 @@ export interface IUser extends Document{
 export interface IUserModel extends Model<IUser> {
     signup(userEntity: IUser): Promise<IUser>;
     // login(email: string, password: string): Promise<IUser>;
+}
+
+
+export type IJWTPayload = {
+    _id: string,
+    isAdmin: boolean,
+    isBusiness: boolean
 }

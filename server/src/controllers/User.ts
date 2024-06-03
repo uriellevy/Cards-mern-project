@@ -1,10 +1,24 @@
 import User from "../db/models/UserModel";
 import userSchema from "../db/validations/User-schema";
-import { IUser } from "../interfaces/User";
+import { IJWTPayload, IUser } from "../interfaces/User";
+import jwt from "jsonwebtoken";
+
+const generateJWT = (payload: IJWTPayload) => {
+    const secret = process.env.JWT_SECRET;
+    if(!secret) console.log("JWT_SECRET must be included in .env file");
+    return jwt.sign(payload, secret, { expiresIn: "3d" });
+}
+
+const validateJWT = (token: string) => {
+    const secret = process.env.JWT_SECRET;
+    if(!secret) console.log("JWT_SECRET must be included in .env file");
+    return jwt.verify(token, secret) as IJWTPayload;
+}
 
 export const getAllUsers = async (req, res, next) => {
     try {
-
+        const users = await User.find();
+        res.status(200).json({ message: "All users recieved successfully", users });
     } catch (error) {
 
     }
@@ -19,17 +33,15 @@ export const handleLogin = async (req, res, next) => {
 }
 
 export const handleSignup = async (req, res, next) => {
-    const user = new User(req.body);
     const userEntity = req.body as IUser;
 
     try {
-        const user = await userSchema.validateAsync(userEntity);
+        await userSchema.validateAsync(userEntity);
         const savedUser = await User.signup(userEntity);
-
-        // const saved = await createUser(user);
-        // res.status(201).json(saved);
-        next();
+        res.status(201).json({ message: "New user added", savedUser });
+        // next();
     } catch (error) {
-        next(error);
+        // next(error);
+        res.status(400).json({ message: error.message })
     }
 }
