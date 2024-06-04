@@ -1,6 +1,6 @@
 import { IAddress, IImage } from "./User";
 
-export type ICardInput = {
+export interface ICardInput {
     title: string;
     subtitle: string;
     description: string;
@@ -10,7 +10,7 @@ export type ICardInput = {
     image: IImage;
     address: IAddress
 };
-export type ICard = ICardInput & {
+export interface ICard extends ICardInput {
     _id: string,
     bizNumber: number,
     createdAt: Date,

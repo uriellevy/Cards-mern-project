@@ -1,9 +1,14 @@
 import express from "express";
+import { createCard, getAllCards } from "../controllers/Cards";
+import { requireAuth } from "../middleware/requireAuth";
 
 const router = express.Router();
 
-router.get("/", (req,res) => {res.json({message:"get cards"})});
-router.post("/", (req,res) => {res.json({message:"create card"})});
+//require auth for all todo routes
+router.use(requireAuth);
+
+router.get("/", getAllCards);
+router.post("/", createCard);
 router.delete("/", (req,res) => {res.json({message:"delete all my cards"})});
 router.delete("/:id", (req,res) => {res.json({message:"delete card by id"})});
 router.put("/:id", (req,res) => {res.json({message:"edit card by id"})});
