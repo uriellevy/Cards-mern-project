@@ -1,5 +1,5 @@
 import express from "express";
-import { createCard, getAllCards } from "../controllers/Cards";
+import { createCard, deleteAllUserCards, deleteCard, editCard, getAllCards, getAllUserCards, toggleCardLike } from "../controllers/Cards";
 import { requireAuth } from "../middleware/requireAuth";
 
 const router = express.Router();
@@ -8,10 +8,11 @@ const router = express.Router();
 router.use(requireAuth);
 
 router.get("/", getAllCards);
+router.get("/myCards", getAllUserCards);
 router.post("/", createCard);
-router.delete("/", (req,res) => {res.json({message:"delete all my cards"})});
-router.delete("/:id", (req,res) => {res.json({message:"delete card by id"})});
-router.put("/:id", (req,res) => {res.json({message:"edit card by id"})});
-router.patch("/:id", (req,res) => {res.json({message:"patch card property by id"})});
+router.delete("/", deleteAllUserCards);
+router.delete("/:id", deleteCard);
+router.put("/:id", editCard);
+router.patch("/:id", toggleCardLike);
 
 export default router;
