@@ -12,6 +12,9 @@ import LoginPage from './pages/loginPage/LoginPage.tsx';
 import SignupPage from './pages/signupPage/SignupPage.tsx';
 import CardPage from './pages/cardPage/CardPage.tsx';
 import CardProvider from './context/CardContext.tsx';
+import MyCardsPage from './pages/myCardsPage/MyCardsPage.tsx';
+import EditCardPage from './pages/editCardPage/EditCardPage.tsx';
+import AddCardPage from './pages/addCardPage/AddCardPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -32,8 +35,20 @@ const router = createBrowserRouter([
         element: <SignupPage />
       },
       {
+        path: "/myCards",
+        element: <MyCardsPage />
+      },
+      {
         path: "/card/:id",
         element: <CardPage />
+      },
+      {
+        path: "/addCard",
+        element: <AddCardPage />
+      },
+      {
+        path: "/editCard/:id",
+        element: <EditCardPage />
       },
     ]
   },
