@@ -1,4 +1,5 @@
 import User from "../db/models/UserModel";
+import { Request, Response, NextFunction } from 'express';
 import userSchema from "../db/validations/User-schema";
 import { IJWTPayload, IUser } from "../interfaces/User";
 import jwt from "jsonwebtoken";
@@ -25,7 +26,7 @@ export const getAllUsers = async (req, res, next) => {
     }
 }
 
-export const getUserById = async (req, res, next) => {
+export const getUserById = async (req: Request, res:Response, next) => {
     const {id} = req.params;
     try {
         //projection of password is 0 because i dont want to return it to client
@@ -37,7 +38,7 @@ export const getUserById = async (req, res, next) => {
     }
 }
 
-export const handleLogin = async (req, res, next) => {
+export const handleLogin = async (req: Request, res:Response) => {
     const {email,password} = req.body;
     try {
         const user = await User.login(email, password);
@@ -48,13 +49,25 @@ export const handleLogin = async (req, res, next) => {
     }
 }
 
-export const handleSignup = async (req, res, next) => {
+export const handleSignup = async (req: Request, res:Response) => {
     const userEntity = req.body as IUser;
 
     try {
         await userSchema.validateAsync(userEntity);
         const savedUser = await User.signup(userEntity);
         res.status(201).json({ message: "New user added", savedUser });
+        // next();
+    } catch (error) {
+        // next(error);
+        res.status(400).json({ message: error.message })
+    }
+}
+
+export const deleteAllUsers = async(req: Request, res:Response) => {
+
+    try {
+        await User.deleteMany({});
+        res.status(201).json({ message: "All users deleted successfully"});
         // next();
     } catch (error) {
         // next(error);

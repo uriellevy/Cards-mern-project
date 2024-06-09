@@ -13,7 +13,6 @@ export interface ICardInput {
 export interface ICard extends ICardInput {
     _id: string,
     bizNumber: number,
-    createdAt: Date,
     likes: string[],
     userId: string
 };

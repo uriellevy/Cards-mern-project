@@ -1,4 +1,4 @@
-//cards
+//global:
 export interface IName {
     first: string
     middle?: string
@@ -17,6 +17,8 @@ export interface IImage {
     url: string
 }
 
+//card:
+
 
 export interface ICardInput {
     title: string;
@@ -32,13 +34,9 @@ export interface ICardInput {
 export interface ICard extends ICardInput {
     _id: string,
     bizNumber: number,
-    createdAt: Date,
     likes: string[],
     userId: string
 }
-
-
-
 
 export interface CardContextType {
     cards: ICard[]
@@ -66,4 +64,15 @@ export interface ErrorMessage {
 export interface IUser {
     email: string
     token: string
+}
+
+export interface IUserInput{
+    email: string
+    phone: string
+    password: string
+    isBusiness: boolean
+    isAdmin: boolean
+    address: IAddress
+    name: IName
+    image?: IImage
 }

@@ -1,12 +1,13 @@
 import { Button, Label, TextInput, Checkbox, Flowbite } from 'flowbite-react';
 import { Blockquote } from "flowbite-react";
 import { Consts } from '../../consts/Consts';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { IUserInput } from '../../interfaces/interfaces';
 
 const SignupPage = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit/* , formState: { errors } */ } = useForm<IUserInput>();
 
-  const onSubmit = data => {
+  const onSubmit: SubmitHandler<IUserInput> = (data) => {
     console.log(data);
   };
 
@@ -25,7 +26,7 @@ const SignupPage = () => {
                   placeholder="First name..."
                   required
                   className="mt-1 block w-full"
-                  {...register("first", { required: "First Name is required" })}
+                  {...register("name.first", { required: "First Name is required" })}
                 />
               </div>
               <div>
@@ -36,7 +37,7 @@ const SignupPage = () => {
                   placeholder="Middle Name..."
                   required={false}
                   className="mt-1 block w-full"
-                  {...register("middle", { required: "Middle Name is required" })}
+                  {...register("name.middle", { required: "Middle Name is required" })}
                 />
               </div>
               <div>
@@ -47,7 +48,7 @@ const SignupPage = () => {
                   placeholder="Last Name..."
                   required
                   className="mt-1 mx-1 block w-full"
-                  {...register("last", { required: "Last Name is required" })}
+                  {...register("name.last", { required: "Last Name is required" })}
                 />
               </div>
             </div>
@@ -60,7 +61,7 @@ const SignupPage = () => {
                   placeholder="Image Url..."
                   required
                   className="mt-1 block w-full"
-                  {...register("url", { required: "Image Url is required" })}
+                  {...register("image.url", { required: "Image Url is required" })}
                 />
               </div>
               <div>
@@ -71,7 +72,7 @@ const SignupPage = () => {
                   placeholder="Image Alt..."
                   required
                   className="mt-1 block w-full"
-                  {...register("alt", { required: "Image Alt is required" })}
+                  {...register("image.alt", { required: "Image Alt is required" })}
                 />
               </div>
             </div>
@@ -119,7 +120,7 @@ const SignupPage = () => {
                   placeholder="Street..."
                   required
                   className="mt-1 block w-full"
-                  {...register("street", { required: "Street is required" })}
+                  {...register("address.street", { required: "Street is required" })}
                 />
               </div>
               <div>
@@ -130,7 +131,7 @@ const SignupPage = () => {
                   placeholder="City..."
                   required
                   className="mt-1 block w-full"
-                  {...register("city", { required: "City is required" })}
+                  {...register("address.city", { required: "City is required" })}
                 />
               </div>
               <div>
@@ -141,7 +142,7 @@ const SignupPage = () => {
                   placeholder="State..."
                   required
                   className="mt-1 block w-full"
-                  {...register("state", { required: "State is required" })}
+                  {...register("address.state", { required: "State is required" })}
                 />
               </div>
               <div>
@@ -152,7 +153,7 @@ const SignupPage = () => {
                   placeholder="Zip..."
                   required
                   className="mt-1 block w-full"
-                  {...register("zip", { required: "Zip is required" })}
+                  {...register("address.zip", { required: "Zip is required" })}
                 />
               </div>
               <div>
@@ -163,7 +164,7 @@ const SignupPage = () => {
                   placeholder="Country..."
                   required
                   className="mt-1 block w-full"
-                  {...register("country", { required: "Country is required" })}
+                  {...register("address.country", { required: "Country is required" })}
                 />
               </div>
               <div>
@@ -174,7 +175,7 @@ const SignupPage = () => {
                   placeholder="House Number..."
                   required
                   className="mt-1 block w-full"
-                  {...register("houseNumber", { required: "House Number is required" })}
+                  {...register("address.houseNumber", { required: "House Number is required" })}
                 />
               </div>
             </div>
@@ -185,7 +186,7 @@ const SignupPage = () => {
               </Label>
             </div>
             <Button type="submit" className="w-full">
-              Create
+              Signup
             </Button>
           </form>
         </div>

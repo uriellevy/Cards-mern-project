@@ -21,7 +21,6 @@ export interface IUser extends Document {
     email: string
     phone: string
     password: string
-    createdAt: Date
     isBusiness: boolean
     isAdmin: boolean
     address: IAddress

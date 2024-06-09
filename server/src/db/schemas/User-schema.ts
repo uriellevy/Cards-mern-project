@@ -19,7 +19,6 @@ const userSchema = new Schema<IUser, IUserModel>({
     password: { type: String, required: true, minlength: 7, maxlength: 300 },
     phone: { type: String, required: true, minlength: 9, maxlength: 11 },
     isBusiness: { required: true, type: Boolean },
-    createdAt: { type: Date, default: new Date(), required: false },
     isAdmin: { required: false, type: Boolean, default: false },
 },{timestamps: true});
 

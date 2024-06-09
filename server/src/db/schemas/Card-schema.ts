@@ -13,7 +13,6 @@ const cardSchema = new Schema<ICard>({
     address: { type: addressSchema, required: true },
     image: { type: imageSchema, required: true },
     likes: [{ type: String }],
-    createdAt: { type: Date, required: false, default: new Date() },
     userId: { type: String, required: true },
     bizNumber: { type: Number, required: false, default: Math.random() },
 });
