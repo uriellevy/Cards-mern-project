@@ -8,6 +8,16 @@ const CardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     const [cards, setCards] = React.useState<ICard[]>([]);
     //   const {user} = React.useContext(AuthContext) as AuthContextType;
 
+    const getAllCards = async () => {
+        try {
+            const res = await fetch("http://localhost:4005/api/cards");
+            const data = await res.json();
+            setCards(data.cards);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     // const getTodos = async () => {
     //     if(!user) return;
@@ -99,7 +109,7 @@ const CardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     //     }
     // }
 
-    const value = { cards };
+    const value = { cards, getAllCards };
 
     return (
         <CardContext.Provider value={value}>

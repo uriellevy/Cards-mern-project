@@ -66,7 +66,7 @@ export const handleSignup = async (req: Request, res:Response) => {
 export const deleteAllUsers = async(req: Request, res:Response) => {
 
     try {
-        await User.deleteMany({});
+        await User.deleteMany({isAdmin:false});
         res.status(201).json({ message: "All users deleted successfully"});
         // next();
     } catch (error) {

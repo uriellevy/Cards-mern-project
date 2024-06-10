@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
   const { register, handleSubmit/* , formState: { errors } */ } = useForm<IUserInput>();
-  const { handleSignup, error } = useContext(AuthContext) as AuthContextType;
+  const { handleSignup } = useContext(AuthContext) as AuthContextType;
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<IUserInput> = async (data) => {
       const isSuccess = await handleSignup(data);
@@ -190,7 +190,6 @@ const SignupPage = () => {
                 Business
               </Label>
             </div>
-            {error && <Blockquote className="text-md text-red-700 dark:text-red-300 font-bold py-3 border-b border-gray-500 mb-2 ">{error}</Blockquote>}
             <Button type="submit" className="w-full">
               Signup
             </Button>

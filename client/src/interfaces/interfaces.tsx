@@ -40,6 +40,7 @@ export interface ICard extends ICardInput {
 
 export interface CardContextType {
     cards: ICard[]
+    getAllCards: () => Promise<void>
 }
 
 

@@ -45,6 +45,14 @@ export const deleteAllUserCards = async (req: CardsRequest, res: Response) => {
         res.status(400).json({ message: error.message })
     }
 }
+export const deleteAllCards = async (req: CardsRequest, res: Response) => {
+    try {
+        const deletedCards = await Card.deleteMany({});
+        res.status(200).json({ message: "All cards deleted successfully", deletedCards });
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}
 
 export const deleteCard = async (req: CardsRequest, res: Response) => {
     const { id } = req.params;

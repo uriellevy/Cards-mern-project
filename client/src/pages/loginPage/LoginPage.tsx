@@ -5,13 +5,16 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { AuthContextType, IAuth } from '../../interfaces/interfaces';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const { register, handleSubmit/* , formState: { errors } */ } = useForm<IAuth>();
-  const { handleLogin, error } = useContext(AuthContext) as AuthContextType;
+  const { handleLogin } = useContext(AuthContext) as AuthContextType;
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<IAuth> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IAuth> = async (data) => {
+    const isSuccess = await handleLogin(data);
+    if(isSuccess) navigate("/");
   };
 
   return (
