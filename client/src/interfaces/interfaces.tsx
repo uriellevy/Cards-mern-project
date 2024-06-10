@@ -53,7 +53,7 @@ export type AuthContextType = {
     error: string
     user: IUser | null
     handleLogin: (auth: IAuth) => Promise<boolean | undefined>
-    handleSignup: (auth: IAuth) => Promise<boolean | undefined>
+    handleSignup: (auth: IUserInput) => Promise<boolean | undefined>
     handleLogout: () => Promise<void>
 };
 

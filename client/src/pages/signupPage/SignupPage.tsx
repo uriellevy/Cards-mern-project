@@ -2,13 +2,18 @@ import { Button, Label, TextInput, Checkbox, Flowbite } from 'flowbite-react';
 import { Blockquote } from "flowbite-react";
 import { Consts } from '../../consts/Consts';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IUserInput } from '../../interfaces/interfaces';
+import { AuthContextType, IUserInput } from '../../interfaces/interfaces';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
   const { register, handleSubmit/* , formState: { errors } */ } = useForm<IUserInput>();
-
-  const onSubmit: SubmitHandler<IUserInput> = (data) => {
-    console.log(data);
+  const { handleSignup, error } = useContext(AuthContext) as AuthContextType;
+  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<IUserInput> = async (data) => {
+      const isSuccess = await handleSignup(data);
+      if(isSuccess) navigate("/login");
   };
 
   return (
@@ -37,7 +42,7 @@ const SignupPage = () => {
                   placeholder="Middle Name..."
                   required={false}
                   className="mt-1 block w-full"
-                  {...register("name.middle", { required: "Middle Name is required" })}
+                  {...register("name.middle")}
                 />
               </div>
               <div>
@@ -180,11 +185,12 @@ const SignupPage = () => {
               </div>
             </div>
             <div className="flex items-center mb-2">
-              <Checkbox id="isBusiness" {...register("isBusiness")}/>
+              <Checkbox id="isBusiness" {...register("isBusiness")} />
               <Label htmlFor="isBusiness" className="ml-2">
                 Business
               </Label>
             </div>
+            {error && <Blockquote className="text-md text-red-700 dark:text-red-300 font-bold py-3 border-b border-gray-500 mb-2 ">{error}</Blockquote>}
             <Button type="submit" className="w-full">
               Signup
             </Button>

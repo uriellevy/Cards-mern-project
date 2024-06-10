@@ -2,10 +2,13 @@ import { Button, Label, TextInput, Flowbite } from 'flowbite-react';
 import { Blockquote } from "flowbite-react";
 import { Consts } from '../../consts/Consts';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IAuth } from '../../interfaces/interfaces';
+import { AuthContextType, IAuth } from '../../interfaces/interfaces';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 const LoginPage = () => {
   const { register, handleSubmit/* , formState: { errors } */ } = useForm<IAuth>();
+  const { handleLogin, error } = useContext(AuthContext) as AuthContextType;
 
   const onSubmit: SubmitHandler<IAuth> = (data) => {
     console.log(data);

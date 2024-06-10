@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AuthContextType, ErrorMessage, IAuth, IUser } from "../interfaces/interfaces";
+import { AuthContextType, ErrorMessage, IAuth, IUser, IUserInput } from "../interfaces/interfaces";
 
 export const AuthContext = React.createContext<AuthContextType | null>(null);
 
@@ -55,23 +55,21 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const handleSignup = async (auth: IAuth) => {
+  const handleSignup = async (userData: IUserInput) => {
     const res = await fetch("http://localhost:4005/api/user/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(auth),
+      body: JSON.stringify(userData),
     });
     const data = await res.json();
 
     if(!res.ok) {
-      console.log(data.message);
       setError(data.message);
       return false;
     }
     if(res.ok) {
-      console.log(data.message);
       setUser(data);
       setError("");
       localStorage.setItem("user", JSON.stringify(data));

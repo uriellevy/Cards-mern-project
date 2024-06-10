@@ -15,6 +15,7 @@ import CardProvider from './context/CardContext.tsx';
 import MyCardsPage from './pages/myCardsPage/MyCardsPage.tsx';
 import EditCardPage from './pages/editCardPage/EditCardPage.tsx';
 import AddCardPage from './pages/addCardPage/AddCardPage.tsx';
+import AuthProvider from './context/AuthContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -56,8 +57,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <CardProvider>
-      <RouterProvider router={router} />
-    </CardProvider>
+    <AuthProvider>
+      <CardProvider>
+        <RouterProvider router={router} />
+      </CardProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
