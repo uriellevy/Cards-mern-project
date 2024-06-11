@@ -15,7 +15,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const userString = localStorage.getItem("user");
     if (userString) {
       const loggedUser = JSON.parse(userString);
-      setUser(loggedUser.user);
+      setUser(loggedUser);
     }
   }, [])
 

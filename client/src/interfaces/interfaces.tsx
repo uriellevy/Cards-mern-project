@@ -40,9 +40,11 @@ export interface ICard extends ICardInput {
 
 export interface CardContextType {
     cards: ICard[]
+    error:string
     getAllCards: () => Promise<void>
+    getMyCards: () => Promise<boolean | undefined>
+    createCard: (newCard: ICardInput) => Promise<void>
 }
-
 
 ///user
 
@@ -56,7 +58,7 @@ export type AuthContextType = {
     handleLogin: (auth: IAuth) => Promise<boolean | undefined>
     handleSignup: (auth: IUserInput) => Promise<boolean | undefined>
     handleLogout: () => Promise<void>
-};
+}
 
 export interface ErrorMessage {
     message: string
@@ -65,6 +67,7 @@ export interface ErrorMessage {
 export interface IUser {
     email: string
     token: string
+    user: IUserInput
 }
 
 export interface IUserInput{

@@ -2,13 +2,16 @@ import { Button, Label, TextInput, Flowbite, Textarea } from 'flowbite-react';
 import { Blockquote } from "flowbite-react";
 import { Consts } from '../../consts/Consts';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ICardInput } from '../../interfaces/interfaces';
+import { CardContextType, ICardInput } from '../../interfaces/interfaces';
+import { useContext } from 'react';
+import { CardContext } from '../../context/CardContext';
 
 const AddCardPage = () => {
   const { register, handleSubmit/* , formState: { errors } */ } = useForm<ICardInput>();
+  const {createCard} = useContext(CardContext) as CardContextType;
 
   const onSubmit: SubmitHandler<ICardInput> = (data) => {
-    console.log(data);
+    createCard(data);
   };
 
   return (
