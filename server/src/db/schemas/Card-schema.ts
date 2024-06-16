@@ -15,5 +15,5 @@ const cardSchema = new Schema<ICard>({
     likes: [{ type: String }],
     userId: { type: String, required: true },
     bizNumber: { type: Number, required: false, default: Math.random() },
-});
+},{timestamps: true});
 export default cardSchema;

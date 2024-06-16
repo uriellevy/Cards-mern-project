@@ -27,6 +27,7 @@ export const getAllUserCards = async (req: CardsRequest, res: Response, next: Ne
 export const createCard = async (req: CardsRequest, res: Response, next: NextFunction) => {
     const newCard = { ...req.body, userId: req.user._id } as ICardInput;
     const cardEntity = new Card(newCard);
+    console.log(req.body)
     try {
         await cardSchema.validateAsync(req.body as ICardInput);
         const newCard = await cardEntity.save();
@@ -59,7 +60,7 @@ export const deleteCard = async (req: CardsRequest, res: Response) => {
     try {
         const deletedCard = await Card.findByIdAndDelete({ _id: id });
         const updatedUserCards = await Card.find({ userId: req.user._id });
-        res.status(200).json({ message: `Card with id ${id} deleted successfully`, deletedCard, updatedUserCards });
+        res.status(200).json({ message: `Card with id ${id} deleted successfully`, deletedCard, cards:updatedUserCards });
     } catch (error) {
         res.status(400).json({ message: error.message })
     }

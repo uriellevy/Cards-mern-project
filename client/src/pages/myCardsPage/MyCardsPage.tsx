@@ -4,14 +4,14 @@ import { CardContext } from '../../context/CardContext';
 import { CardContextType } from '../../interfaces/interfaces';
 
 const MyCardsPage = () => {
-  const { cards, getMyCards } = useContext(CardContext) as CardContextType;
+  const { cards, getMyCards, deleteCard } = useContext(CardContext) as CardContextType;
   useEffect(() => {
     getMyCards();
   }, [])
   
   return (
     <div className='container mx-auto p-4'>
-      <MyCardsList cards={cards} />
+      <MyCardsList cards={cards} deleteCard={deleteCard}/>
     </div>
   )
 }

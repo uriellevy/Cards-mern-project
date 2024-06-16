@@ -17,10 +17,17 @@ const validateJWT = (token: string) => {
 }
 
 export const getAllUsers = async (req, res, next) => {
+    const email = req.query.email;
     try {
         //projection of password is 0 because i dont want to return it to client
-        const users = await User.find({},{password: 0});
-        res.status(200).json({ message: "All users recieved successfully", users });
+        if(!email){
+            const users = await User.find({},{password: 0});
+            res.status(200).json({ message: "All users recieved successfully", users });
+        }else {
+            const users = await User.find({email},{password: 0});
+            if(!users.length) return res.status(404).json({message: "email doesnt exist"})
+            res.status(200).json({ message: `user with email:${email} revieved`, users });
+        }
     } catch (error) {
         res.status(400).json({message: error.message}) 
     }
@@ -35,6 +42,17 @@ export const getUserById = async (req: Request, res:Response, next) => {
         res.status(200).json({ message: "user found successfully", user});
     } catch (error) {
         res.status(400).json({message: error.message}) 
+    }
+}
+
+export const getUserByEmail = async (req: Request, res:Response) => {
+    const email = req.query.email;
+    if(!email) return res.status(404).json({message: "Email query parameter is required"});
+    try {
+        const filteredUser = await User.find({email: email});
+        res.status(200).json({message:"user fetch successfully", user:filteredUser});
+    } catch (error) {
+        res.status(400).json({message: error.message})
     }
 }
 

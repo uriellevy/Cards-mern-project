@@ -43,7 +43,8 @@ export interface CardContextType {
     error:string
     getAllCards: () => Promise<void>
     getMyCards: () => Promise<boolean | undefined>
-    createCard: (newCard: ICardInput) => Promise<void>
+    createCard: (newCard: ICardInput) => Promise<boolean | undefined>
+    deleteCard: (id: string) => Promise<boolean | undefined>
 }
 
 ///user

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { AuthContextType, CardContextType, ICard, ICardInput } from '../interfaces/interfaces';
 import { AuthContext } from './AuthContext';
 import useToastNotification from '../hooks/useToastNotification';
-// import { AuthContext } from './AuthContext';
 
 export const CardContext = React.createContext<CardContextType | null>(null);
 
@@ -27,6 +26,7 @@ const CardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         const res = await fetch("http://localhost:4005/api/cards/myCards", {
             headers: {
                 "Authorization": `Bearer ${user.token}`,
+                "Content-Type": "application/json"
             }
         });
         const data = await res.json();
@@ -39,8 +39,6 @@ const CardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
             setCards(data.cards);
             setError("");
             showToastSuccess(`${user.user.name.first} cards loaded successfully`);
-            console.log(user)
-            localStorage.setItem("user", JSON.stringify(data));
             return true;
         }
     }
@@ -51,6 +49,7 @@ const CardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${user.token}`,
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(newCard),
         });
@@ -64,67 +63,35 @@ const CardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         if (res.ok) {
             setCards(data.cards);
             setError("");
-            showToastSuccess(`${user} create a new card successfully`);
-            localStorage.setItem("user", JSON.stringify(data));
+            showToastSuccess(`${user.user.name.first} create a new card successfully`);
             return true;
         }
     }
 
-    // const deleteAllTodos = async () => {
-    //     if(!user) return;
+    const deleteCard = async (id:string) => {
+        if(!user)return;
+        const res = await fetch(`http://localhost:4005/api/cards/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${user.token}`,
+                "Content-Type": "application/json"
+            },
+        });
+        const data = await res.json();
+        if (!res.ok) {
+            setError(data.message);
+            showToastError(data.message);
+            return false;
+        }
+        if (res.ok) {
+            setCards(data.cards);
+            setError("");
+            showToastSuccess(`card ${id} deleted successfully`);
+            return true;
+        }
+    }
 
-    //     try {
-    //         const res = await fetch("http://localhost:4005/api/todos", {
-    //             method: "DELETE",
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 "Authorization": `Bearer ${user.token}`,
-    //             },
-    //         });
-    //         const data = await res.json();
-    //         setTodos(data.data.todos);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-    // const deleteTodoById = async (id:string) => {
-    //     if(!user) return;
-
-    //     try {
-    //         const res = await fetch(`http://localhost:4005/api/todos/${id}`, {
-    //             method: "DELETE",
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 "Authorization": `Bearer ${user.token}`,
-    //             },
-    //         });
-    //         const data = await res.json();
-    //         setTodos(data.data.todos);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-    // const editTodoById = async (todo:ITodo) => {
-    //     if(!user) return;
-    //     try {
-    //         const res = await fetch(`http://localhost:4005/api/todos/${todo._id}`, {
-    //             method: "PUT",
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 "Authorization": `Bearer ${user.token}`,
-    //             },
-    //             body: JSON.stringify(todo),
-    //         });
-    //         const data = await res.json();
-    //         setTodos(data.data.todos);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-    const value = { cards, getAllCards, getMyCards, createCard,error };
+    const value = { cards, error , getAllCards, getMyCards, createCard, deleteCard };
 
     return (
         <CardContext.Provider value={value}>

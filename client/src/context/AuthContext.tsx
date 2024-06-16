@@ -39,7 +39,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     if (res.ok) {
       setUser(data);
       setError("");
-      showToastSuccess("Logged in successfully");
+      showToastSuccess(`Welcome ${data.user.name.first}`);
       localStorage.setItem("user", JSON.stringify(data));
       return true;
     }

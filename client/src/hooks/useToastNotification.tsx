@@ -19,7 +19,7 @@ const useToastNotification = () => {
     const showToastSuccess: ShowToastFunction = (message: string, options = {}) => {
         toast.success(message, {
             position: options.position || "top-right",
-            autoClose: options.autoClose || 5000,
+            autoClose: options.autoClose || 2500,
             hideProgressBar: options.hideProgressBar ? options.hideProgressBar : false,
             closeOnClick: options.closeOnClick ? options.closeOnClick : true,
             pauseOnHover: options.pauseOnHover ? options.pauseOnHover : true,
